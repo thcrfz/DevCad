@@ -7,8 +7,11 @@ export default class developerModel extends Model {
         type: Sequelize.STRING,
         defaultValue: '',
         validate: {
-          args: [3, 255],
-          msg: ['Name should have between 3 an 255 characters.'],
+          len: {
+            args: [3, 255],
+            msg: ['Name should have between 3 an 255 characters.'],
+          },
+
         },
       },
       email: {
