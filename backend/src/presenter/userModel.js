@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
-import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
+import developerModel from './developerModel';
 
 export default class userModel extends Model {
   static init(sequelize) {
@@ -43,7 +43,7 @@ export default class userModel extends Model {
     return bcryptjs.compare(password, this.password_hash);
   }
 
-  generateToken() {
-
+  static associate(models) {
+    this.hasMany(models.developerModel, { foreignKey: 'user_id' });
   }
 }
