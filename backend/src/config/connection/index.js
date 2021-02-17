@@ -1,9 +1,9 @@
 import Sequelize from 'sequelize';
-import databaseService from '../database/databaseService';
-import userModel from '../../presenter/user';
+import config from '../database/databaseService';
+import userModel from '../../presenter/userModel';
 
 const models = [userModel];
 
-const connection = new Sequelize(databaseService);
+const connection = new Sequelize(config);
 
 models.forEach((model) => model.init(connection));

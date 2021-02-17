@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/config/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/config/server.js --ignore __tests__",
+    "pretest": "set NODE_ENV=test&&sequelize db:migrate",
+    "test": "set NODE_ENV=test&&jest",
+    "posttest": "set NODE_ENV=test&&sequelize db:migrate:undo:all"
   },
   "keywords": [],
   "author": "",
@@ -22,10 +24,14 @@
     "sequelize": "^6.5.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.12.13",
     "eslint": "^7.20.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3",
     "sequelize-cli": "^6.2.0",
-    "sucrase": "^3.17.1"
+    "sqlite3": "^5.0.2",
+    "sucrase": "^3.17.1",
+    "supertest": "^6.1.3"
   }
 }
