@@ -1,10 +1,8 @@
 import request from 'supertest';
-import '../../src/config/connection';
-import jwt from 'jsonwebtoken';
-import app from '../../src/main';
-import truncate from '../utils/trucante';
-import factory from '../factories';
-import userModel from '../../src/presenter/userModel';
+import '../../../src/config/connection';
+import app from '../../../src/main';
+import truncate from '../../utils/trucante';
+import factory from '../../factories';
 
 describe('Authentication', () => {
   beforeEach(async () => {
@@ -54,17 +52,5 @@ describe('Authentication', () => {
       });
 
     expect(response.body).toHaveProperty('token');
-  });
-
-  it('should be able to access privates routes when authenticated', async () => {
-    const user = await factory.create('userModel', {
-      password: '1234567',
-    });
-
-    const response = await request(app)
-      .post('/dashboard')
-      .set('Authorization', `Bearer ${jwt.sign({ id: user.id }, process.env.TOKEN_SECRET)}`);
-
-    expect(response.status).toBe(200);
   });
 });

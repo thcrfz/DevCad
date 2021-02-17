@@ -1,6 +1,37 @@
+import userModel from '../presenter/userModel';
+
 class UserController {
+  async store(req, res) {
+    try {
+      const user = await userModel.create(req.body);
+
+      const { id, email } = user;
+
+      return res.json({ id, email });
+    } catch (e) {
+      return res.status(400).json({ errors: e.errors.map((err) => err.message) });
+    }
+  }
+
   async index(req, res) {
-    return res.send('Hello World');
+    try {
+      const users = await userModel.findAll({ attributes: ['id', 'email'] });
+      return res.json(users);
+    } catch (e) {
+      return res.json(null);
+    }
+  }
+
+  async show(req, res) {
+    try {
+      const user = await userModel.findByPk(req.params.id);
+
+      const { id, email } = user;
+
+      return res.json({ id, email });
+    } catch (e) {
+      return res.js(null);
+    }
   }
 }
 
