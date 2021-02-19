@@ -1,6 +1,5 @@
 import Button from "@material-ui/core/Button";
 import { isEmail } from "validator";
-import { UserData } from "../../domain/posts/post";
 import { useStyles } from "./styles";
 import {
   Container,
@@ -12,17 +11,16 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useState } from "react";
+import { fecthPostSessionJson } from "../../utils/fetch-post-session";
+import { SESSION_URL } from "../../config/app-config";
 
-export type LoginPageProps = {
-  developers: UserData[];
-};
-
-export default function LoginPage({ user }: LoginPageProps) {
+export default function LoginPage() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState<any>(null);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     let formErrors = false;
 
@@ -35,13 +33,16 @@ export default function LoginPage({ user }: LoginPageProps) {
       formErrors = true;
       console.log("Senha inválida");
     }
-    return formErrors ? true : console.log(email, password);
+
+    const res = await fecthPostSessionJson(SESSION_URL, email, password);
+    return setMessage(res);
   }
 
   return (
     <Container maxWidth="sm" className={classes.root}>
       <Paper className={classes.paper}>
         <Typography variant="h5">Faça o login</Typography>
+        {JSON.stringify(message)}
         <form onSubmit={handleSubmit} className={classes.form}>
           <FormControl>
             <InputLabel htmlFor="my-input">Email address</InputLabel>
@@ -53,7 +54,7 @@ export default function LoginPage({ user }: LoginPageProps) {
               aria-describedby="my-helper-text"
             />
             <FormHelperText id="my-helper-text">
-              We'll never share your email.
+              Well never share your email.
             </FormHelperText>
           </FormControl>
           <FormControl>
