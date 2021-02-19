@@ -1,5 +1,4 @@
 import userModel from '../presenter/userModel';
-import languageModel from '../presenter/languageModel';
 import developerModel from '../presenter/developerModel';
 
 class UserController {
@@ -11,7 +10,7 @@ class UserController {
 
       return res.json({ id, email });
     } catch (e) {
-      return res.status(400).json({ errors: e.errors.map((err) => err.message) });
+      return res.status(400).json();
     }
   }
 
