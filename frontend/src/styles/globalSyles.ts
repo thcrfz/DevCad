@@ -6,5 +6,8 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0;
     outline: none;
     box-sizing: border-box;
+  },
+  html{
+    background: azure;
   }
 `;
