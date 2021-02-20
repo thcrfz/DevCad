@@ -1,6 +1,5 @@
 import Button from "@material-ui/core/Button";
-import { isEmail } from "validator";
-import { useStyles } from "./styles";
+import { useStyles } from "../../styles/form-styles";
 import {
   Container,
   FormControl,
@@ -23,11 +22,6 @@ export default function LoginPage() {
   async function handleSubmit(e) {
     e.preventDefault();
     let formErrors = false;
-
-    if (!isEmail(email)) {
-      formErrors = true;
-      console.log("Email inválido");
-    }
 
     if (password.length < 6 || password.length > 50) {
       formErrors = true;

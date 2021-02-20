@@ -1,7 +1,6 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@material-ui/core/styles";
-import NavBar from "../components/navbar";
 
 export default class MyDocument extends Document {
   render() {
@@ -19,7 +18,6 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
-          <NavBar />
           <Main />
           <NextScript />
         </body>
