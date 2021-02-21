@@ -10,7 +10,7 @@ import { get } from "lodash";
 import validator from "validator";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
-import { useStyles } from "../../styles/form-styles";
+import { useStyles } from "../../styles/useStyles";
 import Button from "@material-ui/core/Button";
 import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";

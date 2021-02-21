@@ -18,5 +18,11 @@ export const useStyles = makeStyles((theme: Theme) =>
     formControl: {
       marginTop: theme.spacing(3),
     },
+    container: {
+      marginTop: theme.spacing(5),
+    },
+    table: {
+      minWidth: 700,
+    },
   }),
 );
