@@ -13,13 +13,13 @@ export default function Home({ developers }: HomeProps) {
   return (
     <>
       <NavBar />
-      <ListDeveloper />
+      <ListDeveloper developers={developers} />
     </>
   );
 }
+
 export const getStaticProps: GetStaticProps = async () => {
   const developers = await getAllDevelopers();
-
   return {
     props: { developers },
   };

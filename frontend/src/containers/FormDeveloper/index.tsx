@@ -4,8 +4,10 @@ import {
   Input,
   InputLabel,
   Paper,
+  IconButton,
   Typography,
 } from "@material-ui/core";
+import Link from "next/link";
 import { get } from "lodash";
 import validator from "validator";
 import PropTypes from "prop-types";
@@ -13,14 +15,14 @@ import { toast } from "react-toastify";
 import { useStyles } from "../../styles/useStyles";
 import Button from "@material-ui/core/Button";
 import { useState } from "react";
-import "react-toastify/dist/ReactToastify.css";
+import { ArrowBack } from "@material-ui/icons";
 
 // eslint-disable-next-line react/prop-types
 export default function FormDeveloper({ match }) {
   const id = get(match, "params.id", 0);
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [age, setAge] = useState(1);
+  const [age, setAge] = useState<string>("");
   const [url, setUrl] = useState<string>("");
 
   async function handleSubmit(e) {
@@ -28,7 +30,7 @@ export default function FormDeveloper({ match }) {
     let formErrors = false;
 
     if (name.length < 3 || name.length > 255) {
-      toast.error("Nome inválido");
+      toast.error("Nome precisa ter entre 3 e 255 caracteres.");
       formErrors = true;
     }
     if (!validator.isEmail(email)) {
@@ -36,7 +38,7 @@ export default function FormDeveloper({ match }) {
       formErrors = true;
     }
     if (!validator.isInt(String(age))) {
-      toast.error("idade inválido");
+      toast.error("idade inválida");
       formErrors = true;
     }
     if (!validator.isURL(url)) {
@@ -49,6 +51,9 @@ export default function FormDeveloper({ match }) {
   return (
     <Container maxWidth="sm" className={classes.root}>
       <Paper className={classes.paper}>
+        <Link href="/">
+          <ArrowBack cursor="pointer" />
+        </Link>
         <Typography variant="h5">
           {id ? "Editar desenvolvedor" : "Cadastrar desenvolvedor"}
         </Typography>

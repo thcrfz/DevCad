@@ -12,31 +12,27 @@ import {
 import { useState } from "react";
 import { fecthPostSessionJson } from "../../utils/fetch-post-session";
 import { SESSION_URL } from "../../config/app-config";
+import { toast } from "react-toastify";
+import validator from "validator";
 
 export default function LoginPage() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState<any>(null);
+  const [message, setMessage] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
-    let formErrors = false;
+    const json = await fecthPostSessionJson(SESSION_URL, email, password);
+    setMessage(json);
 
-    if (password.length < 6 || password.length > 50) {
-      formErrors = true;
-      console.log("Senha inválida");
-    }
-
-    const res = await fecthPostSessionJson(SESSION_URL, email, password);
-    return setMessage(res);
+    return toast.info(JSON.stringify(message));
   }
 
   return (
     <Container maxWidth="sm" className={classes.root}>
       <Paper className={classes.paper}>
         <Typography variant="h5">Faça o login</Typography>
-        {JSON.stringify(message)}
         <form onSubmit={handleSubmit} className={classes.form}>
           <FormControl>
             <InputLabel htmlFor="my-input">Email address</InputLabel>

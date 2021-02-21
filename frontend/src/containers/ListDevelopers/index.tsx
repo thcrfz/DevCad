@@ -8,13 +8,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
   withStyles,
 } from "@material-ui/core";
-import Link from "next/link";
 
 import { useStyles } from "../../styles/useStyles";
 import { Theme } from "@material-ui/core/styles";
+import { DeveloperData } from "../../domain/posts/post";
+
+export type DeveloperProps = {
+  developers: DeveloperData[];
+};
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +41,7 @@ const StyledTableRow = withStyles((theme: Theme) =>
   }),
 )(TableRow);
 
-export default function ListDeveloper() {
+export default function ListDeveloper({ developers }: DeveloperProps) {
   const classes = useStyles();
   return (
     <Container className={classes.container}>
@@ -54,17 +57,25 @@ export default function ListDeveloper() {
             </TableRow>
           </TableHead>
           <TableBody>
-            <StyledTableRow>
-              <StyledTableCell align="center">Amanda</StyledTableCell>
-              <StyledTableCell align="center">amanda@gmail.com</StyledTableCell>
-              <StyledTableCell align="center">19</StyledTableCell>
-              <StyledTableCell align="center">
-                https://linkedin.com/amanda
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                C#, Javascript, React
-              </StyledTableCell>
-            </StyledTableRow>
+            {developers.map((developer) => (
+              <StyledTableRow key={developer.id}>
+                <StyledTableCell align="center">
+                  {developer.name}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {developer.email}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {developer.age}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {developer.url}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  C#, Javascript, React
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
