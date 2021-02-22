@@ -23,6 +23,7 @@ import validator from "validator";
 import { fetchPostDeveloperJson } from "../../utils/fetch-post-developer";
 import { DEVELOPERS_URL } from "../../config/app-config";
 import { fetchPutDeveloperJson } from "../../utils/fetch-put-developer";
+import Loading from "../../components/Loading";
 
 export type DynamicDevProps = {
   developers: DeveloperData;
@@ -36,10 +37,12 @@ const DynamicDevs = ({ developers }: DynamicDevProps) => {
   const [email, setEmail] = useState<string>(developers.email);
   const [age, setAge] = useState<string>(developers.age);
   const [url, setUrl] = useState<string>(developers.url);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
     let formErrors = false;
+    setIsLoading(true);
 
     if (name.length < 3 || name.length > 255) {
       toast.error("Nome precisa ter entre 3 e 255 caracteres.");
@@ -66,11 +69,14 @@ const DynamicDevs = ({ developers }: DynamicDevProps) => {
     );
 
     return json;
+    setIsLoading(false);
   }
 
-  if (router.isFallback) return <div>Loading...</div>;
+  if (router.isFallback) return <Loading isLoading={isLoading} />;
+
   return (
     <Container maxWidth="sm" className={classes.root}>
+      <Loading isLoading={isLoading} />
       <Paper className={classes.paper}>
         <Link href="/">
           <ArrowBack cursor="pointer" />

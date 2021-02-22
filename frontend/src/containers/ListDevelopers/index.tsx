@@ -17,6 +17,8 @@ import { useStyles } from "../../styles/useStyles";
 import { Theme } from "@material-ui/core/styles";
 import { DeveloperData } from "../../domain/posts/post";
 import { DeleteRounded, EditRounded } from "@material-ui/icons";
+import { fetchDeleteDeveloperJson } from "../../utils/fetch-delete-developer";
+import { DEVELOPERS_URL } from "../../config/app-config";
 
 export type DeveloperProps = {
   developers: DeveloperData[];
@@ -47,6 +49,9 @@ const StyledTableRow = withStyles((theme: Theme) =>
 export default function ListDeveloper({ developers }: DeveloperProps) {
   const classes = useStyles();
 
+  async function handleDelete(e, id) {
+    await fetchDeleteDeveloperJson(`${DEVELOPERS_URL}\\${id}`);
+  }
   return (
     <Container className={classes.container}>
       <TableContainer component={Paper}>
@@ -92,9 +97,9 @@ export default function ListDeveloper({ developers }: DeveloperProps) {
                   </Link>
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  <Link href={`/register/${developer.id}`}>
+                  <IconButton onClick={(e) => handleDelete(e, developer.id)}>
                     <DeleteRounded cursor="pointer" />
-                  </Link>
+                  </IconButton>
                 </StyledTableCell>
               </StyledTableRow>
             ))}
