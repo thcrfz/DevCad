@@ -1,4 +1,4 @@
-export const fetchPostDeveloperJson = async (
+export const fetchPutDeveloperJson = async (
   link: string,
   name: string,
   email: string,
@@ -6,7 +6,7 @@ export const fetchPostDeveloperJson = async (
   url: string,
 ) => {
   const rawData = await fetch(link, {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },

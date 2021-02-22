@@ -8,9 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import Link from "next/link";
-import { get } from "lodash";
 import validator from "validator";
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { useStyles } from "../../styles/useStyles";
 import Button from "@material-ui/core/Button";
@@ -18,10 +16,9 @@ import { useEffect, useState } from "react";
 import { ArrowBack } from "@material-ui/icons";
 import { fetchPostDeveloperJson } from "../../utils/fetch-post-developer";
 import { DEVELOPERS_URL } from "../../config/app-config";
+import { DeveloperData } from "../../domain/posts/post";
 
-// eslint-disable-next-line react/prop-types
-export default function FormDeveloper({ match }) {
-  const id = get(match, "params.id", 0);
+export default function FormDeveloper() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [age, setAge] = useState<string>("");
@@ -65,9 +62,7 @@ export default function FormDeveloper({ match }) {
         <Link href="/">
           <ArrowBack cursor="pointer" />
         </Link>
-        <Typography variant="h5">
-          {id ? "Editar desenvolvedor" : "Cadastrar desenvolvedor"}
-        </Typography>
+        <Typography variant="h5">Cadastrar desenvolvedor</Typography>
         <form onSubmit={handleSubmit} className={classes.form}>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="name">Nome</InputLabel>
@@ -121,7 +116,3 @@ export default function FormDeveloper({ match }) {
     </Container>
   );
 }
-
-FormDeveloper.propTypes = {
-  match: PropTypes.shape({}).isRequired,
-};
