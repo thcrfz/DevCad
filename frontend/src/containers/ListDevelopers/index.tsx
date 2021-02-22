@@ -1,6 +1,7 @@
 import {
   Container,
   createStyles,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -10,10 +11,12 @@ import {
   TableRow,
   withStyles,
 } from "@material-ui/core";
-
+import { get } from "lodash";
+import Link from "next/link";
 import { useStyles } from "../../styles/useStyles";
 import { Theme } from "@material-ui/core/styles";
 import { DeveloperData } from "../../domain/posts/post";
+import { DeleteRounded, EditRounded } from "@material-ui/icons";
 
 export type DeveloperProps = {
   developers: DeveloperData[];
@@ -43,6 +46,7 @@ const StyledTableRow = withStyles((theme: Theme) =>
 
 export default function ListDeveloper({ developers }: DeveloperProps) {
   const classes = useStyles();
+
   return (
     <Container className={classes.container}>
       <TableContainer component={Paper}>
@@ -54,6 +58,8 @@ export default function ListDeveloper({ developers }: DeveloperProps) {
               <StyledTableCell align="center">Idade</StyledTableCell>
               <StyledTableCell align="center">Url</StyledTableCell>
               <StyledTableCell align="center">Tecnologias</StyledTableCell>
+              <StyledTableCell align="center">Editar</StyledTableCell>
+              <StyledTableCell align="center">Excluir</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -72,7 +78,23 @@ export default function ListDeveloper({ developers }: DeveloperProps) {
                   {developer.url}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  C#, Javascript, React
+                  {get(developer, "languageModels[0].name", false) ? (
+                    developer.languageModels[0].name
+                  ) : (
+                    <Link href="/languages">
+                      <a>Cadastrar linguagem</a>
+                    </Link>
+                  )}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <Link href={`/register/${developer.id}`}>
+                    <EditRounded cursor="pointer" />
+                  </Link>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <Link href={`/register/${developer.id}`}>
+                    <DeleteRounded cursor="pointer" />
+                  </Link>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

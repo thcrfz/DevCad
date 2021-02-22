@@ -16,7 +16,7 @@ export type DeveloperData = {
   userID: number;
   created_at: string;
   updated_at: string;
-  languagesModels: [];
+  languageModels: LanguageData;
 };
 
 export type LanguageData = {

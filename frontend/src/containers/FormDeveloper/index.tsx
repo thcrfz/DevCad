@@ -14,8 +14,10 @@ import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { useStyles } from "../../styles/useStyles";
 import Button from "@material-ui/core/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowBack } from "@material-ui/icons";
+import { fetchPostDeveloperJson } from "../../utils/fetch-post-developer";
+import { DEVELOPERS_URL } from "../../config/app-config";
 
 // eslint-disable-next-line react/prop-types
 export default function FormDeveloper({ match }) {
@@ -45,6 +47,15 @@ export default function FormDeveloper({ match }) {
       toast.error("url inválida");
       formErrors = true;
     }
+    const json = await fetchPostDeveloperJson(
+      DEVELOPERS_URL,
+      name,
+      email,
+      age,
+      url,
+    );
+
+    return json;
   }
 
   const classes = useStyles();
