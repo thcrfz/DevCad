@@ -48,7 +48,7 @@ const StyledTableRow = withStyles((theme: Theme) =>
 
 export default function ListDeveloper({ developers }: DeveloperProps) {
   const classes = useStyles();
-
+  const techs = [];
   async function handleDelete(e, id) {
     await fetchDeleteDeveloperJson(`${DEVELOPERS_URL}\\${id}`);
   }
@@ -68,41 +68,45 @@ export default function ListDeveloper({ developers }: DeveloperProps) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {developers.map((developer) => (
-              <StyledTableRow key={developer.id}>
-                <StyledTableCell align="center">
-                  {developer.name}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {developer.email}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {developer.age}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {developer.url}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {get(developer, "languageModels[0].name", false) ? (
-                    developer.languageModels[0].name
-                  ) : (
-                    <Link href="/languages">
-                      <a>Cadastrar linguagem</a>
+            {!developers ? (
+              <div>Faça login</div>
+            ) : (
+              developers.map((developer) => (
+                <StyledTableRow key={developer.id}>
+                  <StyledTableCell align="center">
+                    {developer.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {developer.email}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {developer.age}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {developer.url}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {get(developer, "languageModels[0].name", false) ? (
+                      developer.languageModels[0].name
+                    ) : (
+                      <Link href="/languages">
+                        <a>Cadastrar linguagem</a>
+                      </Link>
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    <Link href={`/register/${developer.id}`}>
+                      <EditRounded cursor="pointer" />
                     </Link>
-                  )}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  <Link href={`/register/${developer.id}`}>
-                    <EditRounded cursor="pointer" />
-                  </Link>
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  <IconButton onClick={(e) => handleDelete(e, developer.id)}>
-                    <DeleteRounded cursor="pointer" />
-                  </IconButton>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    <IconButton onClick={(e) => handleDelete(e, developer.id)}>
+                      <DeleteRounded cursor="pointer" />
+                    </IconButton>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

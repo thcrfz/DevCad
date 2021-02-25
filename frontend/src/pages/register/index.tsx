@@ -1,6 +1,5 @@
 import { GetStaticProps } from "next";
 
-import React from "react";
 import FormDeveloper from "../../containers/FormDeveloper";
 import { getAllDevelopers } from "../../data/developers/get-all-developers";
 

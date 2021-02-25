@@ -19,10 +19,12 @@ export type DeveloperData = {
   languageModels: LanguageData;
 };
 
-export type LanguageData = {
-  id: number;
-  name: string;
-  developerID: number;
-  created_at: string;
-  updated_at: string;
-};
+export type LanguageData = [
+  {
+    id: number;
+    name: string;
+    developerID: number;
+    created_at: string;
+    updated_at: string;
+  },
+];

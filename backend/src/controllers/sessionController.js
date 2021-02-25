@@ -18,16 +18,7 @@ class SessionController {
       const token = jwt.sign({ id, email }, process.env.TOKEN_SECRET, {
         expiresIn: process.env.TOKEN_EXPIRATION,
       });
-      res.setHeader(
-        "Set-Cookie",
-        cookie.serialize("auth", token, {
-          httpOnly: true,
-          sameSite: "strict",
-          maxAge: 3600,
-          path: "/",
-        })
-      );
-      return res.json({ message: "Welcome back to the app" });
+      return res.json({ token, message: "Welcome back to the app" });
     } catch (e) {
       return console.log(e);
     }

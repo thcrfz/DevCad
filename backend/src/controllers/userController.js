@@ -1,5 +1,5 @@
-import userModel from '../presenter/userModel';
-import developerModel from '../presenter/developerModel';
+import userModel from "../presenter/userModel";
+import developerModel from "../presenter/developerModel";
 
 class UserController {
   async store(req, res) {
@@ -17,11 +17,14 @@ class UserController {
   async index(req, res) {
     try {
       const users = await userModel.findAll({
-        attributes: ['id', 'email'],
-        order: [['id', 'DESC'], [developerModel, 'id', 'DESC']],
+        attributes: ["id", "email"],
+        order: [
+          ["id", "DESC"],
+          [developerModel, "id", "DESC"],
+        ],
         include: {
           model: developerModel,
-          attributes: ['name', 'email', 'url'],
+          attributes: ["name", "email", "url"],
         },
       });
       return res.json(users);

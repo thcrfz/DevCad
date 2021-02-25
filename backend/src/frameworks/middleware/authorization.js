@@ -2,10 +2,13 @@ import jwt from "jsonwebtoken";
 import userModel from "../../presenter/userModel";
 
 export default async (req, res, next) => {
-  if (!req.cookies.auth) return res.status(401).json({ errors: ["Login required"] });
+  const { authorization } = req.headers;
+  if (!authorization) return res.status(401).json({ errors: ["Login required"] });
+
+  const [, token] = authorization.split(" ");
 
   try {
-    const data = jwt.verify(req.cookies.auth, process.env.TOKEN_SECRET);
+    const data = jwt.verify(token, process.env.TOKEN_SECRET);
     const { id, email } = data;
 
     const user = await userModel.findOne({
