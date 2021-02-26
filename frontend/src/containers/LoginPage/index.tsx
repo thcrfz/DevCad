@@ -22,7 +22,6 @@ export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState<string>("");
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,14 +30,12 @@ export default function LoginPage() {
         return toast.error("Os campos não podem ficar vazios.");
       await fecthPostSessionJson(SESSION_URL, email, password)
         .then((res) => {
-          if (res.status === 401) return toast.error(res.errors[0]);
           const token = res.token;
           if (token) {
             const json = jwt.decode(token) as { [key: string]: string };
-            setMessage("welcome" + json.email);
+            toast.success("Bem-vindo " + json.email);
           }
           localStorage.setItem("token", token);
-          toast.success(res.message);
           router.push("/home");
         })
         .catch((err) => {
@@ -77,7 +74,7 @@ export default function LoginPage() {
               aria-describedby="my-helper-text"
             />
             <FormHelperText id="my-helper-text">
-              We'll never share your password.
+              Well never share your password.
             </FormHelperText>
           </FormControl>
           <Button type="submit" color="primary">

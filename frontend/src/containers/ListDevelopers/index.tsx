@@ -19,6 +19,7 @@ import { DeveloperData } from "../../domain/posts/post";
 import { DeleteRounded, EditRounded } from "@material-ui/icons";
 import { fetchDeleteDeveloperJson } from "../../utils/fetch-delete-developer";
 import { DEVELOPERS_URL } from "../../config/app-config";
+import { useEffect, useState } from "react";
 
 export type DeveloperProps = {
   developers: DeveloperData[];
@@ -47,9 +48,20 @@ const StyledTableRow = withStyles((theme: Theme) =>
 )(TableRow);
 
 export default function ListDeveloper({ developers }: DeveloperProps) {
+  const [developer, setDeveloper] = useState([]);
   const classes = useStyles();
-  async function handleDelete(e, id) {
+  useEffect(() => {
+    function getData() {
+      setDeveloper(developers);
+    }
+    getData();
+  }, [developers]);
+  async function handleDelete(e, id, index) {
+    e.persist();
     await fetchDeleteDeveloperJson(`${DEVELOPERS_URL}\\${id}`);
+    const newDevs = [...developers];
+    newDevs.splice(index, 1);
+    setDeveloper(newDevs);
   }
   return (
     <Container className={classes.container}>
@@ -67,39 +79,29 @@ export default function ListDeveloper({ developers }: DeveloperProps) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {!developers ? (
+            {!developer ? (
               <div>Faça login</div>
             ) : (
-              developers.map((developer) => (
-                <StyledTableRow key={developer.id}>
+              developer.map((dev, index) => (
+                <StyledTableRow key={dev.id}>
+                  <StyledTableCell align="center">{dev.name}</StyledTableCell>
+                  <StyledTableCell align="center">{dev.email}</StyledTableCell>
+                  <StyledTableCell align="center">{dev.age}</StyledTableCell>
+                  <StyledTableCell align="center">{dev.url}</StyledTableCell>
                   <StyledTableCell align="center">
-                    {developer.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {developer.email}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {developer.age}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {developer.url}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {get(developer, "languageModels[0].name", false) ? (
-                      developer.languageModels[0].name
+                    {get(dev, "languageModels[0].name", false) ? (
+                      dev.languageModels[0].name
                     ) : (
-                      <Link href="/languages">
-                        <a>Cadastrar linguagem</a>
-                      </Link>
+                      <span>Sem linguagem</span>
                     )}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    <Link href={`/register/${developer.id}`}>
+                    <Link href={`/register/${dev.id}`}>
                       <EditRounded cursor="pointer" />
                     </Link>
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    <IconButton onClick={(e) => handleDelete(e, developer.id)}>
+                    <IconButton onClick={(e) => handleDelete(e, dev.id, index)}>
                       <DeleteRounded cursor="pointer" />
                     </IconButton>
                   </StyledTableCell>

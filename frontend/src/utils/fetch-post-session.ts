@@ -1,9 +1,11 @@
+import { toast } from "react-toastify";
+
 export const fecthPostSessionJson = async (
   url: string,
   userEmail: string,
   userPassword: string,
 ) => {
-  const rawData = await fetch(url, {
+  return await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -12,7 +14,8 @@ export const fecthPostSessionJson = async (
       email: userEmail,
       password: userPassword,
     }),
+  }).then((res) => {
+    if (res.status !== 200) return toast.error("Email ou senha inválidos.");
+    return res.json();
   });
-  const jsonData = await rawData.json();
-  return jsonData;
 };

@@ -95,7 +95,7 @@ export default function Form({
             color="primary"
             type="submit"
           >
-            Entrar
+            Cadastrar
           </Button>
         </form>
         <form onSubmit={handleLang}>
@@ -115,7 +115,7 @@ export default function Form({
             color="primary"
             type="submit"
           >
-            Entrar
+            Cadastrar
           </Button>
         </form>
       </Paper>

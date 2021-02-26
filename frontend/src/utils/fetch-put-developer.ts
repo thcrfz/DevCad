@@ -21,7 +21,7 @@ export const fetchPutDeveloperJson = async (
   }).then((res) => {
     if (res.status !== 200) return toast.error("Error ao editar linguagem");
     console.log(res.status);
-    toast.success("Linguagem editada com sucesso!");
+    toast.success("Usuário editada com sucesso!");
     return res.json();
   });
 };

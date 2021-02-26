@@ -1,13 +1,10 @@
-import validator from "validator";
-import { toast } from "react-toastify";
 import { fetchPostDeveloperJson } from "../../utils/fetch-post-developer";
 import { DEVELOPERS_URL, LANG_URL } from "../../config/app-config";
 import { useState } from "react";
 import Form from "../../components/Form";
 import { fetchPostLangJson } from "../../utils/fetch-post-language";
-import { FormControl, Input, InputLabel } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import { useStyles } from "../../styles/useStyles";
+import validation from "../../utils/validate";
+import { home } from "../../config/routes";
 
 export default function FormDeveloper() {
   const [name, setName] = useState<string>("");
@@ -16,15 +13,11 @@ export default function FormDeveloper() {
   const [url, setUrl] = useState<string>("");
   const [lang, setLang] = useState<string>("");
   const [id, setId] = useState(0);
-  const home = "/home";
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (name.length < 3 || name.length > 255)
-      return toast.error("Nome precisa ter entre 3 e 255 caracteres.");
-    if (!validator.isEmail(email)) return toast.error("email inválido");
-    if (!validator.isInt(String(age))) return toast.error("idade inválida");
-    if (!validator.isURL(url)) return toast.error("url inválida");
+
+    validation(name, email, age, url);
 
     await fetchPostDeveloperJson(
       DEVELOPERS_URL,
