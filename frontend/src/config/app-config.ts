@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:3001";
+export const API_URL = "https://dev-cad-backend.herokuapp.com";
 export const DEVELOPERS_URL = `${API_URL}/developers`;
 export const USERS_URL = `${API_URL}/users`;
 export const SESSION_URL = `${API_URL}/sessions`;
