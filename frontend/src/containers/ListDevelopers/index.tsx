@@ -48,7 +48,6 @@ const StyledTableRow = withStyles((theme: Theme) =>
 
 export default function ListDeveloper({ developers }: DeveloperProps) {
   const classes = useStyles();
-  const techs = [];
   async function handleDelete(e, id) {
     await fetchDeleteDeveloperJson(`${DEVELOPERS_URL}\\${id}`);
   }

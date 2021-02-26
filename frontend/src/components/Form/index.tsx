@@ -13,6 +13,7 @@ import { useStyles } from "../../styles/useStyles";
 
 export type FormProps = {
   handleSubmit: (e) => void;
+  handleLang: (e) => void;
   name: string;
   setName;
   email: string;
@@ -21,11 +22,14 @@ export type FormProps = {
   setAge;
   url: string;
   setUrl;
+  lang: string;
+  setLang;
   link: string;
 };
 
 export default function Form({
   handleSubmit,
+  handleLang,
   name,
   setName,
   email,
@@ -34,6 +38,8 @@ export default function Form({
   setAge,
   url,
   setUrl,
+  lang,
+  setLang,
   link,
 }: FormProps) {
   const classes = useStyles();
@@ -81,6 +87,25 @@ export default function Form({
               type="url"
               value={url}
               onChange={(event) => setUrl(event.target.value)}
+            />
+          </FormControl>
+          <Button
+            className={classes.formControl}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Entrar
+          </Button>
+        </form>
+        <form onSubmit={handleLang}>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="linkedin">Linguagem</InputLabel>
+            <Input
+              id="language"
+              type="text"
+              value={lang}
+              onChange={(event) => setLang(event.target.value)}
             />
           </FormControl>
 

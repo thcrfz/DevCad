@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export const fetchPutDeveloperJson = async (
   link: string,
   name: string,
@@ -5,7 +7,7 @@ export const fetchPutDeveloperJson = async (
   age: string,
   url: string,
 ) => {
-  const rawData = await fetch(link, {
+  return await fetch(link, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -16,7 +18,10 @@ export const fetchPutDeveloperJson = async (
       age: age,
       url: url,
     }),
+  }).then((res) => {
+    if (res.status !== 200) return toast.error("Error ao editar linguagem");
+    console.log(res.status);
+    toast.success("Linguagem editada com sucesso!");
+    return res.json();
   });
-  const jsonData = await rawData.json();
-  return jsonData;
 };

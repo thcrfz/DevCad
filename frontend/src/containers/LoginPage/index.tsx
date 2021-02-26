@@ -53,7 +53,6 @@ export default function LoginPage() {
     <Container maxWidth="sm" className={classes.root}>
       <Paper className={classes.paper}>
         <Typography variant="h5">Faça o login</Typography>
-        <h1>{message}</h1>
         <form onSubmit={handleSubmit} className={classes.form}>
           <FormControl>
             <InputLabel htmlFor="my-input">Email address</InputLabel>
