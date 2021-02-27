@@ -6,21 +6,31 @@ import Form from "../../components/Form";
 import { fetchPostLangJson } from "../../utils/fetch-post-language";
 import { get } from "lodash";
 import validation from "../../utils/validate";
+import { postDeveloper } from "../../data/developers/post-developers";
 
 export type DynamicDevProps = {
   developers: DeveloperData;
 };
 
 const DynamicDevs = ({ developers }: DynamicDevProps) => {
-  const [name, setName] = useState<string>(developers.name);
-  const [email, setEmail] = useState<string>(developers.email);
-  const [age, setAge] = useState<string>(developers.age);
-  const [url, setUrl] = useState<string>(developers.url);
+  const [name, setName] = useState<string>(
+    get(developers, "name", false) ? developers.name : "",
+  );
+  const [email, setEmail] = useState<string>(
+    get(developers, "email", false) ? developers.email : "",
+  );
+  const [age, setAge] = useState<string>(
+    get(developers, "age", false) ? developers.age : "",
+  );
+  const [url, setUrl] = useState<string>(
+    get(developers, "url", false) ? developers.url : "",
+  );
   const [lang, setLang] = useState<string>(
     get(developers, "languageModels[0].name", false)
       ? developers.languageModels[0].name
       : "",
   );
+  const [id, setId] = useState(0);
 
   const home = "/home";
 
@@ -29,20 +39,27 @@ const DynamicDevs = ({ developers }: DynamicDevProps) => {
 
     validation(name, email, age, url);
 
-    await fetchPutDeveloperJson(
-      `${DEVELOPERS_URL}\\${developers.id}`,
-      name,
-      email,
-      age,
-      url,
-    );
+    if (!developers) {
+      const developer = await postDeveloper(name, email, age, url);
+      setId(developer.id);
+    } else {
+      await fetchPutDeveloperJson(
+        `${DEVELOPERS_URL}\\${developers.id}`,
+        name,
+        email,
+        age,
+        url,
+      );
+    }
   };
-
-  console.log(developers.id);
 
   async function handleLang(e) {
     e.preventDefault();
-    await fetchPostLangJson(LANG_URL, lang, developers.id);
+    if (!developers) {
+      await fetchPostLangJson(LANG_URL, lang, id);
+    } else {
+      await fetchPostLangJson(LANG_URL, lang, developers.id);
+    }
   }
 
   return (

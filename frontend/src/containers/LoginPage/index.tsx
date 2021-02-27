@@ -10,12 +10,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useState } from "react";
-import { fecthPostSessionJson } from "../../utils/fetch-post-session";
-import { SESSION_URL } from "../../config/app-config";
 import { toast } from "react-toastify";
 import { useRouter } from "next/Router";
 import validator from "validator";
 import jwt from "jsonwebtoken";
+import { postSessionUser } from "../../data/session/post-session-user";
+import { home } from "../../config/routes";
 
 export default function LoginPage() {
   const classes = useStyles();
@@ -25,24 +25,15 @@ export default function LoginPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (!validator.isEmail(email) && !password)
+      return toast.error("Os campos não podem ficar vazios.");
     try {
-      if (!validator.isEmail(email) && !password)
-        return toast.error("Os campos não podem ficar vazios.");
-      await fecthPostSessionJson(SESSION_URL, email, password)
-        .then((res) => {
-          const token = res.token;
-          if (token) {
-            const json = jwt.decode(token) as { [key: string]: string };
-            toast.success("Bem-vindo " + json.email);
-          }
-          localStorage.setItem("token", token);
-          router.push("/home");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const user = await postSessionUser(email, password);
+      if (!user) return toast.error("Usuário não existe");
+      toast.success(`Bem-vindo ${email}`);
+      return router.push(home);
     } catch (e) {
-      return console.log(e);
+      console.log(e);
     }
   }
 

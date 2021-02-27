@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-export const fecthPostSessionJson = async (
+export const fetchPostSessionJson = async (
   url: string,
   userEmail: string,
   userPassword: string,

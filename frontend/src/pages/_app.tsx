@@ -5,6 +5,8 @@ import { theme } from "../styles/theme";
 import { AppProps } from "next/app";
 import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
+import { GetStaticProps } from "next";
+import { getAllDevelopers } from "../data/developers/get-all-developers";
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
