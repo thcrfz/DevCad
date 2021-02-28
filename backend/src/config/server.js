@@ -1,5 +1,5 @@
 import app from '../main';
 
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log('servidor na porta 3001');
 });

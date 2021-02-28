@@ -5,13 +5,21 @@ import {
 } from "../../data/developers/get-all-developers";
 import { DeveloperData } from "../../domain/posts/post";
 import DynamicDevs from "../../containers/DynamicDevs";
+import NavBar from "../../components/navbar";
+import React from "react";
+import ListDeveloper from "../../containers/ListDevelopers";
 
 export type DynamicDevProps = {
   developers: DeveloperData;
 };
 
 export default function IdDevs({ developers }: DynamicDevProps) {
-  return <DynamicDevs developers={developers} />;
+  return (
+    <>
+      <NavBar />
+      <DynamicDevs developers={developers} />
+    </>
+  );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

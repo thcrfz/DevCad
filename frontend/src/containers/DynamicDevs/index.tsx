@@ -7,6 +7,7 @@ import { fetchPostLangJson } from "../../utils/fetch-post-language";
 import { get } from "lodash";
 import validation from "../../utils/validate";
 import { postDeveloper } from "../../data/developers/post-developers";
+import { toast } from "react-toastify";
 
 export type DynamicDevProps = {
   developers: DeveloperData;
@@ -38,7 +39,6 @@ const DynamicDevs = ({ developers }: DynamicDevProps) => {
     e.preventDefault();
 
     validation(name, email, age, url);
-
     if (!developers) {
       const developer = await postDeveloper(name, email, age, url);
       setId(developer.id);
@@ -54,10 +54,14 @@ const DynamicDevs = ({ developers }: DynamicDevProps) => {
   };
 
   async function handleLang(e) {
-    e.preventDefault();
+    if (!id) {
+      e.preventDefault();
+      return toast.error("Cadastre o desenvolvedor");
+    }
     if (!developers) {
       await fetchPostLangJson(LANG_URL, lang, id);
     } else {
+      e.preventDefault();
       await fetchPostLangJson(LANG_URL, lang, developers.id);
     }
   }
@@ -66,6 +70,7 @@ const DynamicDevs = ({ developers }: DynamicDevProps) => {
     <Form
       handleSubmit={handleSubmit}
       handleLang={handleLang}
+      developers={developers}
       name={name}
       setName={setName}
       email={email}

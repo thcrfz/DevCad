@@ -96,7 +96,7 @@ export default function ListDeveloper({ developers }: DeveloperProps) {
                     )}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    <Link href={`/register/${dev.id}`}>
+                    <Link href={`/home/${dev.id}`}>
                       <EditRounded cursor="pointer" />
                     </Link>
                   </StyledTableCell>

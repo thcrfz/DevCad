@@ -14,6 +14,7 @@ import { useStyles } from "../../styles/useStyles";
 export type FormProps = {
   handleSubmit: (e) => void;
   handleLang: (e) => void;
+  developers;
   name: string;
   setName;
   email: string;
@@ -30,6 +31,7 @@ export type FormProps = {
 export default function Form({
   handleSubmit,
   handleLang,
+  developers,
   name,
   setName,
   email,
@@ -46,10 +48,16 @@ export default function Form({
   return (
     <Container maxWidth="sm" className={classes.root}>
       <Paper className={classes.paper}>
-        <Link href={link}>
-          <ArrowBack cursor="pointer" />
-        </Link>
-        <Typography variant="h5">Cadastrar desenvolvedor</Typography>
+        {!developers ? (
+          <Typography variant="h5">Cadastrar desenvolvedor</Typography>
+        ) : (
+          <span>
+            <Link href={link}>
+              <ArrowBack cursor="pointer" />
+            </Link>
+            <Typography variant="h5">Editar desenvolvedor</Typography>
+          </span>
+        )}
         <form onSubmit={handleSubmit} className={classes.form}>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="name">Nome</InputLabel>

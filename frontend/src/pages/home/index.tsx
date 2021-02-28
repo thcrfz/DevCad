@@ -1,10 +1,11 @@
 import { DeveloperData } from "../../domain/posts/post";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticProps } from "next";
 import { getAllDevelopers } from "../../data/developers/get-all-developers";
 import NavBar from "../../components/navbar";
 import React from "react";
 import ListDeveloper from "../../containers/ListDevelopers";
 import DynamicDevs from "../../containers/DynamicDevs";
+import { Container } from "@material-ui/core";
 
 export type HomeProps = {
   developers: DeveloperData[];
@@ -15,8 +16,10 @@ export default function Index({ developers, developer }: HomeProps) {
   return (
     <>
       <NavBar />
-      <DynamicDevs developers={developer} />
-      <ListDeveloper developers={developers} />
+      <Container>
+        <DynamicDevs developers={developer} />
+        <ListDeveloper developers={developers} />
+      </Container>
     </>
   );
 }
