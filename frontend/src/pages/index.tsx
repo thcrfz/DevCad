@@ -1,5 +1,5 @@
 import { DeveloperData } from "../domain/posts/post";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { signIn, signOut, useSession } from "next-auth/client";
 import { getAllDevelopers } from "../data/developers/get-all-developers";
 import NavBar from "../components/navbar";
@@ -37,7 +37,7 @@ export default function Index({ developers, developer }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const developers = await getAllDevelopers();
   return {
     props: { developers },

@@ -1,24 +1,29 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import helmet from 'helmet';
-import './config/connection';
-import developerRoutes from './frameworks/web/routes/developerRoutes';
-import languagesRoutes from './frameworks/web/routes/languagesRoutes';
+import express from "express";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+import cors from "cors";
+import helmet from "helmet";
+import "./config/connection";
+import developerRoutes from "./frameworks/web/routes/developerRoutes";
+import languagesRoutes from "./frameworks/web/routes/languagesRoutes";
 
 dotenv.config({
-  path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
+  path: process.env.NODE_ENV === "test" ? ".env.test" : ".env",
 });
 
-const whiteList = ['http://localhost:3000', 'http://localhost:3001', 'http://34.95.158.147'];
+const whiteList = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "http://34.95.158.147",
+  "https://devcad.netlify.app",
+];
 
 const corsOption = {
   origin(origin, callback) {
     if (whiteList.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by cors'));
+      callback(new Error("Not allowed by cors"));
     }
   },
 };
@@ -39,8 +44,8 @@ class App {
   }
 
   routes() {
-    this.app.use('/developers', developerRoutes);
-    this.app.use('/languages', languagesRoutes);
+    this.app.use("/developers", developerRoutes);
+    this.app.use("/languages", languagesRoutes);
   }
 }
 export default new App().app;
