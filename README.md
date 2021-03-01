@@ -1,6 +1,6 @@
 # Projeto DevCad
 
-Um simples projeto para cadastrar e listar desenvolvedores.
+Um site para cadastrar e listar desenvolvedores.
 O projeto foi feito com **NodeJS** e **NextJs**, utilizando **Auth0** para
 autenticar o usuário.
 
