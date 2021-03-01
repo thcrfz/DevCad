@@ -25,7 +25,6 @@ export type FormProps = {
   setUrl;
   lang: string;
   setLang;
-  link: string;
 };
 
 export default function Form({
@@ -42,7 +41,6 @@ export default function Form({
   setUrl,
   lang,
   setLang,
-  link,
 }: FormProps) {
   const classes = useStyles();
   return (
@@ -52,7 +50,7 @@ export default function Form({
           <Typography variant="h5">Cadastrar desenvolvedor</Typography>
         ) : (
           <span>
-            <Link href={link}>
+            <Link href="/">
               <ArrowBack cursor="pointer" />
             </Link>
             <Typography variant="h5">Editar desenvolvedor</Typography>

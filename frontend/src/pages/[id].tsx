@@ -2,22 +2,37 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import {
   getAllDevelopers,
   getIdDevelopers,
-} from "../../data/developers/get-all-developers";
-import { DeveloperData } from "../../domain/posts/post";
-import DynamicDevs from "../../containers/DynamicDevs";
-import NavBar from "../../components/navbar";
+} from "../data/developers/get-all-developers";
+import { signIn, useSession } from "next-auth/client";
+import { DeveloperData } from "../domain/posts/post";
+import DynamicDevs from "../containers/DynamicDevs";
+import NavBar from "../components/navbar";
 import React from "react";
-import ListDeveloper from "../../containers/ListDevelopers";
+import { Container } from "@material-ui/core";
+import Loading from "../components/Loading";
+import SignIn from "../components/SignIn";
 
 export type DynamicDevProps = {
   developers: DeveloperData;
 };
 
 export default function IdDevs({ developers }: DynamicDevProps) {
+  const [session, loading] = useSession();
+
   return (
     <>
-      <NavBar />
-      <DynamicDevs developers={developers} />
+      {!session && (
+        <Container>
+          <SignIn handleSingIn={() => signIn("auth0")} />
+        </Container>
+      )}
+      {session && (
+        <>
+          <NavBar />
+          <DynamicDevs developers={developers} />
+        </>
+      )}
+      {loading && <Loading />}
     </>
   );
 }

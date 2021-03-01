@@ -1,10 +1,9 @@
 import Sequelize from 'sequelize';
 import config from '../database/databaseService';
-import userModel from '../../presenter/userModel';
 import developerModel from '../../presenter/developerModel';
 import languageModel from '../../presenter/languageModel';
 
-const models = [userModel, developerModel, languageModel];
+const models = [developerModel, languageModel];
 
 const connection = new Sequelize(config);
 

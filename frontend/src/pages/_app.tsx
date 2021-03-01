@@ -4,9 +4,8 @@ import { ToastContainer } from "react-toastify";
 import { theme } from "../styles/theme";
 import { AppProps } from "next/app";
 import { useEffect } from "react";
+import { Provider } from "next-auth/client";
 import "react-toastify/dist/ReactToastify.css";
-import { GetStaticProps } from "next";
-import { getAllDevelopers } from "../data/developers/get-all-developers";
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -16,11 +15,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, []);
   return (
-    <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
-      <ToastContainer />
-      <GlobalStyles />
-    </ThemeProvider>
+    <Provider session={pageProps.session}>
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+        <ToastContainer />
+        <GlobalStyles />
+      </ThemeProvider>
+    </Provider>
   );
 }
 

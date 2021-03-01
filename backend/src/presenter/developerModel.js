@@ -44,7 +44,6 @@ export default class developerModel extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.userModel, { foreignKey: 'user_id' });
     this.hasMany(models.languageModel, { foreignKey: 'developer_id' });
   }
 }

@@ -33,8 +33,6 @@ const DynamicDevs = ({ developers }: DynamicDevProps) => {
   );
   const [id, setId] = useState(0);
 
-  const home = "/home";
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -81,7 +79,6 @@ const DynamicDevs = ({ developers }: DynamicDevProps) => {
       setUrl={setUrl}
       lang={lang}
       setLang={setLang}
-      link={home}
     />
   );
 };
