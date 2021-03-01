@@ -3,7 +3,7 @@ import {
   getAllDevelopers,
   getIdDevelopers,
 } from "../data/developers/get-all-developers";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, signOut, useSession } from "next-auth/client";
 import { DeveloperData } from "../domain/posts/post";
 import DynamicDevs from "../containers/DynamicDevs";
 import NavBar from "../components/navbar";
@@ -28,7 +28,7 @@ export default function IdDevs({ developers }: DynamicDevProps) {
       )}
       {session && (
         <>
-          <NavBar />
+          <NavBar handleLogout={() => signOut()} />
           <DynamicDevs developers={developers} />
         </>
       )}
