@@ -1,22 +1,20 @@
-import { Button, IconButton, Toolbar, Typography } from "@material-ui/core";
-import { Divbutton, Navbar } from "./styles";
-import Link from "next/link";
+import { Button, Toolbar, Typography } from "@material-ui/core";
+import { Navbar } from "./styles";
 import { MeetingRoomRounded } from "@material-ui/icons";
-import { register } from "../../config/routes";
 
-export default function NavBar() {
+export type logoutProps = {
+  handleLogout: () => void;
+};
+
+export default function NavBar({ handleLogout }: logoutProps) {
   return (
     <Navbar>
       <Toolbar>
-        <Typography variant="h5">DevCad</Typography>
-        <Divbutton>
-          <Link href={register}>
-            <Button variant="text">Cadastrar desenvolvedor</Button>
-          </Link>
-        </Divbutton>
-        <IconButton>
+        <Typography variant="h6">DevCad</Typography>
+        <Button onClick={handleLogout} className="btn-logout">
+          Logout
           <MeetingRoomRounded />
-        </IconButton>
+        </Button>
       </Toolbar>
     </Navbar>
   );

@@ -12,8 +12,21 @@ export default function SignIn({ handleSingIn }: SignInProps) {
   return (
     <Container maxWidth="sm" className={classes.root}>
       <Paper className={classes.paper}>
-        <Typography variant="h5">Faça o login</Typography>
-        <Button onClick={handleSingIn}>Cadastre-se ou faça o login</Button>
+        <Typography variant="h2">DevCad</Typography>
+        <Typography variant="h5" className={classes.btn}>
+          Faça o login
+        </Typography>
+        <Typography className={classes.btn}>
+          Para acessar os recursos do site.
+        </Typography>
+        <Button
+          variant="outlined"
+          color="primary"
+          className={classes.btn}
+          onClick={handleSingIn}
+        >
+          SignIn
+        </Button>
       </Paper>
     </Container>
   );

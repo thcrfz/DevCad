@@ -6,6 +6,6 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0;
     outline: none;
     box-sizing: border-box;
-    background: aliceblue;
-  },
+    background: #000035;
+  }
 `;

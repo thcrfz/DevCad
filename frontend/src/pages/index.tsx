@@ -26,12 +26,11 @@ export default function Index({ developers, developer }: HomeProps) {
         </Container>
       )}
       {session && (
-        <Container>
-          <NavBar />
-          <button onClick={(): Promise<void> => signOut()}>Sign out</button>
+        <>
+          <NavBar handleLogout={() => signOut()} />
           <DynamicDevs developers={developer} />
           <ListDeveloper developers={developers} />
-        </Container>
+        </>
       )}
       {loading && <Loading />}
     </>

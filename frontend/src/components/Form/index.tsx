@@ -5,6 +5,8 @@ import {
   InputLabel,
   Paper,
   Typography,
+  MenuItem,
+  Select,
 } from "@material-ui/core";
 import Link from "next/link";
 import { ArrowBack } from "@material-ui/icons";
@@ -56,6 +58,37 @@ export default function Form({
             <Typography variant="h5">Editar desenvolvedor</Typography>
           </span>
         )}
+
+        <form onSubmit={handleLang} className={classes.formTech}>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-simple-select-label">Tecnologias</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={lang}
+              onChange={(event) => setLang(event.target.value)}
+            >
+              <MenuItem value="Angular">Angular</MenuItem>
+              <MenuItem value="C#">C#</MenuItem>
+              <MenuItem value="Ionic">Ionic</MenuItem>
+              <MenuItem value="Javascript">Javascript</MenuItem>
+              <MenuItem value="Laravel">Laravel</MenuItem>
+              <MenuItem value="Mensageria">Mensageria</MenuItem>
+              <MenuItem value="NodeJs">NodeJs</MenuItem>
+              <MenuItem value="React">React</MenuItem>
+            </Select>
+          </FormControl>
+
+          <Button
+            className={classes.btnRegisterTechs}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Cadastrar tecnologia
+          </Button>
+        </form>
+
         <form onSubmit={handleSubmit} className={classes.form}>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="name">Nome</InputLabel>
@@ -96,32 +129,12 @@ export default function Form({
             />
           </FormControl>
           <Button
-            className={classes.formControl}
+            className={classes.btn}
             variant="contained"
             color="primary"
             type="submit"
           >
-            Cadastrar
-          </Button>
-        </form>
-        <form onSubmit={handleLang}>
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="linkedin">Linguagem</InputLabel>
-            <Input
-              id="language"
-              type="text"
-              value={lang}
-              onChange={(event) => setLang(event.target.value)}
-            />
-          </FormControl>
-
-          <Button
-            className={classes.formControl}
-            variant="contained"
-            color="primary"
-            type="submit"
-          >
-            Cadastrar
+            Cadastrar desenvolvedor
           </Button>
         </form>
       </Paper>
